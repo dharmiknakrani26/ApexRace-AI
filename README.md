@@ -3,7 +3,17 @@
 
 ApexRace AI is an interactive Formula 1 sports analytics dashboard that analyzes lap-by-lap race data to understand whether a driver’s race performance was affected by **tire degradation**, **pit-stop timing**, or **race pace consistency**.
 
-The project is built for the **AQX Sports Analytics Data Bowl 2.0** as an open-source sports analytics prototype.
+Built for the **AQX Sports Analytics Data Bowl 2.0**, this project turns real Formula 1 race data into clean strategy insights, interactive charts, driver comparisons, and a strategy scorecard.
+
+---
+
+## 🌐 Live Demo
+
+🚀 **Live App:**  
+https://apexrace-ai.streamlit.app/
+
+📂 **GitHub Repository:**  
+https://github.com/dharmiknakrani26/ApexRace-AI
 
 ---
 
@@ -25,7 +35,7 @@ In Formula 1, race performance is shaped by multiple connected factors:
 - Pit-stop timing  
 - Race pace consistency  
 - Stint length  
-- Compound choice  
+- Tire compound choice  
 - Strategy execution  
 
 Traditional race summaries do not clearly show when a driver started losing pace, whether they pitted at the right time, or how consistent they were compared to another driver.
@@ -47,16 +57,16 @@ ApexRace AI provides an interactive Streamlit dashboard where users can:
 - Generate a strategy score
 - Understand race performance through a clear summary
 
-The dashboard converts raw lap data into simple insights that fans, analysts, and strategy teams can understand quickly.
+The dashboard converts raw lap data into simple insights that fans, analysts, and strategy learners can understand quickly.
 
 ---
 
 ## ✨ Key Features
 
-### 🏁 Race Selection
+### 🏁 Race Selection  
 Users can select the season, race, and driver from dropdown menus.
 
-### 👤 Full Driver Names
+### 👤 Full Driver Names  
 Driver codes are converted into readable full names such as:
 
 ```text
@@ -65,23 +75,23 @@ Lando Norris (NOR)
 Charles Leclerc (LEC)
 ```
 
-### 📊 Clean Race Pace Trend
+### 📊 Clean Race Pace Trend  
 The dashboard removes pit laps and unusual slow laps to show a cleaner view of race pace.
 
-### 🛞 Tire Degradation Analysis
+### 🛞 Tire Degradation Analysis  
 Shows how lap time changes as tire age increases. This helps identify when tire performance begins to drop.
 
-### 🧠 Strategy Scorecard
+### 🧠 Strategy Scorecard  
 ApexRace AI calculates a strategy score out of 100 using:
 
 - Tire degradation risk
 - Pit timing rating
 - Race pace consistency
 
-### ⏱️ Pit Stop Strategy Analysis
+### ⏱️ Pit Stop Strategy Analysis  
 Shows each stint, tire compound, average lap time, and suggested pit window.
 
-### 🆚 Driver Comparison
+### 🆚 Driver Comparison  
 Compare two drivers based on:
 
 - Average clean lap time
@@ -90,10 +100,10 @@ Compare two drivers based on:
 - Pit stops
 - Race pace trend
 
-### 📝 Race Insight Summary
+### 📝 Race Insight Summary  
 Generates a clear summary explaining the driver’s performance, strategy score, tire risk, pit timing, and actionable impact.
 
-### 🎨 Professional F1 Dashboard UI
+### 🎨 Professional F1 Dashboard UI  
 The app includes a dark racing-style layout with animated cards, metric panels, and a race-control dashboard feel.
 
 ---
@@ -103,6 +113,7 @@ The app includes a dark racing-style layout with animated cards, metric panels, 
 ApexRace AI uses lap-by-lap data and applies simple but useful analytics logic.
 
 ### 1. Clean Lap Filtering
+
 The app removes:
 
 - Pit-in laps
@@ -114,9 +125,11 @@ The app removes:
 This helps create a better view of true race pace.
 
 ### 2. Race Pace Consistency
+
 The dashboard calculates consistency using lap-time variation. Lower variation means the driver maintained more stable pace.
 
 ### 3. Tire Degradation Risk
+
 The app analyzes whether lap time increases as tire age increases.
 
 Risk levels:
@@ -129,9 +142,11 @@ Unknown  = not enough clean data
 ```
 
 ### 4. Suggested Pit Window
+
 The dashboard estimates a possible pit window when tire performance begins to drop.
 
 ### 5. Strategy Score
+
 The strategy score starts from 100 and applies deductions based on:
 
 - Low consistency
@@ -160,13 +175,14 @@ High Strategy Risk
 | Pandas | Data cleaning and analysis |
 | NumPy | Numerical calculations |
 | Plotly | Interactive charts |
+| Streamlit Cloud | Live app deployment |
 
 ---
 
 ## 📁 Project Structure
 
 ```text
-apexrace-ai/
+ApexRace-AI/
 │
 ├── app.py              # Main Streamlit application
 ├── requirements.txt    # Python dependencies
@@ -187,7 +203,7 @@ apexrace-ai/
 
 ```bash
 git clone https://github.com/dharmiknakrani26/ApexRace-AI.git
-cd apexrace-ai
+cd ApexRace-AI
 ```
 
 ### 2. Create Virtual Environment
@@ -216,7 +232,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 5. Run the App
+### 5. Run the App Locally
 
 ```bash
 streamlit run app.py
@@ -250,12 +266,12 @@ Compare With: Max Verstappen (VER)
 
 ApexRace AI then shows:
 
-- Lando Norris clean race pace
-- Tire degradation trend
-- Pit stop strategy
+- Clean race pace trend
+- Tire degradation chart
+- Pit stop strategy table
 - Strategy score
-- Comparison against Max Verstappen
-- Summary explaining whether race performance was affected by tire wear, pit timing, or consistency
+- Driver comparison
+- Race insight summary
 
 ---
 
@@ -294,17 +310,18 @@ Future versions of ApexRace AI could include:
 - Race position change tracking
 - PDF race report export
 - AI-generated strategy recommendation
-- Streamlit Cloud deployment
+- More advanced predictive race strategy modeling
 
 ---
 
 ## ⚠️ Limitations
 
 - Future races may not load until race data becomes available through FastF1.
-- Tire degradation estimates are based on lap-time patterns and may be affected by traffic, safety cars, weather, or fuel load.
-- The strategy score is an analytical indicator, not an official F1 strategy model.
+- Tire degradation estimates are based on lap-time patterns and may be affected by traffic, safety cars, weather, fuel load, or race incidents.
+- The strategy score is an analytical indicator, not an official Formula 1 strategy model.
 - Some race sessions may have incomplete or missing data.
 
+---
 
 ## 👨‍💻 Author
 
