@@ -302,6 +302,41 @@ fastf1.Cache.enable_cache(cache_folder)
 
 
 # -----------------------------
+# Manual Driver Name Map
+# This avoids Streamlit Cloud errors from session.results.
+# -----------------------------
+DRIVER_FULL_NAMES = {
+    "VER": "Max Verstappen (VER)",
+    "PER": "Sergio Perez (PER)",
+    "LAW": "Liam Lawson (LAW)",
+    "TSU": "Yuki Tsunoda (TSU)",
+    "LEC": "Charles Leclerc (LEC)",
+    "SAI": "Carlos Sainz (SAI)",
+    "HAM": "Lewis Hamilton (HAM)",
+    "RUS": "George Russell (RUS)",
+    "ANT": "Andrea Kimi Antonelli (ANT)",
+    "NOR": "Lando Norris (NOR)",
+    "PIA": "Oscar Piastri (PIA)",
+    "ALO": "Fernando Alonso (ALO)",
+    "STR": "Lance Stroll (STR)",
+    "GAS": "Pierre Gasly (GAS)",
+    "OCO": "Esteban Ocon (OCO)",
+    "DOO": "Jack Doohan (DOO)",
+    "COL": "Franco Colapinto (COL)",
+    "ALB": "Alexander Albon (ALB)",
+    "SAR": "Logan Sargeant (SAR)",
+    "BEA": "Oliver Bearman (BEA)",
+    "HUL": "Nico Hulkenberg (HUL)",
+    "MAG": "Kevin Magnussen (MAG)",
+    "BOT": "Valtteri Bottas (BOT)",
+    "ZHO": "Zhou Guanyu (ZHO)",
+    "BOR": "Gabriel Bortoleto (BOR)",
+    "RIC": "Daniel Ricciardo (RIC)",
+    "HAD": "Isack Hadjar (HAD)",
+}
+
+
+# -----------------------------
 # Schedule Loader
 # -----------------------------
 @st.cache_data(show_spinner=True)
@@ -331,35 +366,27 @@ def get_race_schedule(year):
 @st.cache_data(show_spinner=True)
 def load_race_data(year, race_round):
     session = fastf1.get_session(year, race_round, "R")
-    session.load(laps=True, telemetry=False, weather=False, messages=False)
+
+    session.load(
+        laps=True,
+        telemetry=False,
+        weather=False,
+        messages=False
+    )
 
     laps = session.laps.copy()
+
+    if laps.empty:
+        raise ValueError("No lap data found for this race. Try another completed race.")
+
     laps["LapTimeSeconds"] = laps["LapTime"].dt.total_seconds()
     laps = laps.dropna(subset=["LapTimeSeconds"])
 
     driver_name_map = {}
 
-    try:
-        results = session.results.copy()
-
-        for _, row in results.iterrows():
-            code = row.get("Abbreviation", None)
-            full_name = row.get("FullName", None)
-            first_name = row.get("FirstName", "")
-            last_name = row.get("LastName", "")
-
-            if full_name is None or pd.isna(full_name):
-                full_name = f"{first_name} {last_name}".strip()
-
-            if code is not None and not pd.isna(code):
-                driver_name_map[str(code)] = f"{full_name} ({code})"
-
-    except Exception:
-        pass
-
     for code in laps["Driver"].dropna().unique():
-        if code not in driver_name_map:
-            driver_name_map[code] = code
+        code = str(code)
+        driver_name_map[code] = DRIVER_FULL_NAMES.get(code, code)
 
     return laps, driver_name_map
 
